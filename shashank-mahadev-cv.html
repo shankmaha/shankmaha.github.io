@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shashank Mahadev — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0c;
+    --paper: #f5f2ec;
+    --cream: #ede9e0;
+    --accent: #c8440a;
+    --accent-light: #e8957a;
+    --mid: #6b6560;
+    --rule: #d4cfc6;
+    --highlight: #f0e6d3;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 4vw;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+  }
+  .logo:hover { color: var(--accent); }
+  nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--mid);
+    margin-left: 2rem;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--accent); }
+
+  /* ── CV HERO ── */
+  .cv-hero {
+    padding: 120px 4vw 60px;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4vw;
+    align-items: end;
+  }
+  .cv-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .cv-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .cv-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .cv-meta-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+  .cv-download-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-end;
+    padding-bottom: 4px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    border: 1.5px solid var(--ink);
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--ink); color: var(--paper); }
+  .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+  .btn-outline { color: var(--ink); }
+  .btn-outline:hover { background: var(--highlight); }
+
+  /* ── EXPERIENCE ── */
+  .exp-section {
+    padding: 80px 4vw;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 64px;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .timeline { max-width: 920px; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    padding: 52px 0;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .exp-item:first-child { border-top: none; padding-top: 0; }
+  .exp-meta { padding-top: 4px; }
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .exp-company {
+    font-size: 0.85rem;
+    color: var(--mid);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+  .exp-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--rule);
+    color: var(--mid);
+  }
+  .exp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .exp-desc {
+    color: var(--mid);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.75;
+  }
+  .exp-wins {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .exp-wins li {
+    font-size: 0.9rem;
+    color: var(--mid);
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  .exp-wins li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.85rem;
+  }
+  .exp-wins li strong { color: var(--ink); font-weight: 500; }
+
+  /* ── SKILLS SECTION ── */
+  .skills-section {
+    padding: 80px 4vw;
+    border-bottom: 1px solid var(--rule);
+  }
+  .skills-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    max-width: 920px;
+  }
+  .skills-group h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-style: italic;
+    margin-bottom: 1.2rem;
+    color: var(--ink);
+  }
+  .skill-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid var(--rule);
+    margin: 3px 3px 3px 0;
+    color: var(--mid);
+  }
+
+  /* ── EDUCATION SECTION ── */
+  .edu-section {
+    padding: 80px 4vw;
+    border-bottom: 1px solid var(--rule);
+  }
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    max-width: 860px;
+  }
+  .edu-card {
+    background: var(--cream);
+    padding: 36px;
+    border: 1px solid var(--rule);
+  }
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .edu-inst {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .edu-year { font-size: 0.85rem; color: var(--mid); }
+
+  /* ── CONTACT STRIP ── */
+  .contact-strip {
+    padding: 60px 4vw;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  .contact-strip-left h2 {
+    color: var(--paper);
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .contact-strip-left p {
+    color: #7a756d;
+    font-size: 0.9rem;
+    max-width: 480px;
+  }
+  .contact-strip-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .contact-strip-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #a09a92;
+    padding: 12px 20px;
+    border: 1px solid #2a2925;
+    transition: all 0.2s;
+  }
+  .contact-strip-link:hover { color: var(--accent-light); border-color: var(--accent-light); }
+  .availability {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #70c97e;
+    margin-top: 1rem;
+  }
+  .avail-dot {
+    width: 8px; height: 8px;
+    background: #70c97e;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 4vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--mid);
+    text-transform: uppercase;
+    border-top: 1px solid var(--rule);
+  }
+  footer a { color: var(--mid); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  /* ── PRINT / PDF ── */
+  @media print {
+    header, .cv-download-col, .contact-strip-links, footer { display: none; }
+    body { font-size: 14px; background: white; color: black; }
+    .cv-hero { padding-top: 20px; }
+    .exp-section, .skills-section, .edu-section { padding: 40px 20px; }
+    section { break-inside: avoid; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .cv-hero { grid-template-columns: 1fr; }
+    .cv-download-col { align-items: flex-start; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .skills-cols { grid-template-columns: 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    nav { display: none; }
+  }
+
+  /* ── FADE IN ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a class="logo" href="shashank-mahadev.html">← Shashank Mahadev</a>
+  <nav>
+    <a href="shashank-mahadev.html#about">About</a>
+    <a href="shashank-mahadev.html#expertise">Expertise</a>
+    <a href="shashank-mahadev.html#contact">Contact</a>
+    <a href="shashank-mahadev.html#writing">Thinking</a>
+  </nav>
+</header>
+
+<!-- CV HERO -->
+<div class="cv-hero">
+  <div>
+    <div class="cv-eyebrow">Curriculum Vitae</div>
+    <h1>Shashank<br><em>Mahadev</em></h1>
+    <div class="cv-meta">
+      <span class="cv-meta-item">📍 Bengaluru, India</span>
+      <span class="cv-meta-item">☎ +91 79757 74691</span>
+      <span class="cv-meta-item">✉ shashank@mahadev.au</span>
+      <span class="cv-meta-item">in linkedin.com/in/shashank-mahadev</span>
+    </div>
+  </div>
+  <div class="cv-download-col">
+    <a href="shashank-mahadev-cv.pdf" download class="btn btn-primary">⬇ Download PDF</a>
+    <a href="shashank-mahadev.html" class="btn btn-outline">← Back to Site</a>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section class="exp-section">
+  <div class="section-header fade-in">
+    <span class="section-num">01</span>
+    <h2>Experience</h2>
+  </div>
+  <div class="timeline">
+
+    <div class="exp-item fade-in">
+      <div class="exp-meta">
+        <div class="exp-date">May 2023 — Oct 2025</div>
+        <div class="exp-company">
+          Flight Centre Travel Group<br>
+          Envoyage · Brisbane / Bengaluru
+        </div>
+        <span class="exp-badge">Full-time</span>
+      </div>
+      <div class="exp-detail">
+        <div class="exp-title">Head of Engineering<br>Program Delivery &amp; Platforms</div>
+        <p class="exp-desc">Led global technology transformation across 6 countries for one of the world's largest travel companies — owning $4M+ in platform programs spanning ERP, Salesforce CRM, cloud infrastructure, REST APIs, and identity/IAM systems.</p>
+        <ul class="exp-wins">
+          <li>Drove <strong>12.5% YoY business growth</strong> through platform modernisation programs</li>
+          <li>Scaled engineering org from <strong>4 to 27+ engineers</strong> across APAC &amp; EMEA</li>
+          <li>Achieved <strong>90% on-time delivery</strong> via OKR-aligned roadmaps and dependency governance</li>
+          <li>Automated <strong>70%+ of onboarding and lifecycle workflows</strong>, eliminating manual toil</li>
+          <li>Reduced <strong>P0/P1 incidents by 40%</strong> via CI/CD pipelines and SLO governance</li>
+          <li>Piloted <strong>AWS Bedrock (Claude, Titan)</strong> for traveller insights and operational analytics</li>
+          <li>Managed <strong>$4M+ budgets</strong> with full P&amp;L accountability and vendor governance</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-meta">
+        <div class="exp-date">Jan 2022 — Apr 2023</div>
+        <div class="exp-company">
+          Flight Centre Travel Group<br>
+          Digital Commerce · Brisbane
+        </div>
+        <span class="exp-badge">Full-time</span>
+      </div>
+      <div class="exp-detail">
+        <div class="exp-title">Engineering Manager<br>Platform Delivery</div>
+        <p class="exp-desc">Owned delivery of a $4M omnichannel commerce platform across global markets, coordinating product, engineering, architecture, and QA across distributed teams.</p>
+        <ul class="exp-wins">
+          <li>Delivered <strong>omnichannel commerce platform on time and within budget</strong></li>
+          <li>Reduced feature rollout timelines by <strong>30%</strong> via modular microservices architecture</li>
+          <li>Cut incidents by <strong>40%</strong> through CI/CD, SLO monitoring, and post-mortem culture</li>
+          <li>Maintained <strong>0% attrition</strong> in FY23 through clarity, ownership, and growth pathways</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-meta">
+        <div class="exp-date">Oct 2019 — Dec 2021</div>
+        <div class="exp-company">
+          Cox Automotive Australia<br>
+          Brisbane
+        </div>
+        <span class="exp-badge">Full-time</span>
+      </div>
+      <div class="exp-detail">
+        <div class="exp-title">Engineering Manager &amp;<br>Acting General Manager, Tech &amp; IT</div>
+        <p class="exp-desc">Managed 40+ engineering and IT staff for Australia's leading automotive technology business, reporting to the CEO during the acting GM tenure.</p>
+        <ul class="exp-wins">
+          <li>Improved delivery predictability from <strong>68% to 91%</strong></li>
+          <li>Reduced time-to-market by <strong>25%</strong> via dependency mapping and risk-adjusted roadmaps</li>
+          <li>Introduced <strong>portfolio-level OKR governance</strong> and executive reporting</li>
+          <li>Led cloud migration strategy and vendor rationalisation reducing infrastructure costs</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-meta">
+        <div class="exp-date">2007 — 2019</div>
+        <div class="exp-company">
+          Tabcorp · Tattsgroup<br>
+          OtherLevels · Tappr<br>
+          Celstream<br>
+          India &amp; Australia
+        </div>
+        <span class="exp-badge">12 Years</span>
+      </div>
+      <div class="exp-detail">
+        <div class="exp-title">Senior Engineer → Delivery Lead<br>12 Years of Progressive Leadership</div>
+        <p class="exp-desc">Built a strong technical foundation across mobile platforms, analytics SDKs, distributed systems, and fintech integrations before stepping into engineering leadership.</p>
+        <ul class="exp-wins">
+          <li>Led mobile platforms serving <strong>1M+ users</strong> at Tattsgroup</li>
+          <li>Generated <strong>$400K revenue uplift</strong> via data-driven product enhancements</li>
+          <li>Built analytics SDKs, messaging APIs, and geo-location systems at OtherLevels</li>
+          <li>Integrated payment &amp; POS systems in regulated fintech environments at Tappr</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section">
+  <div class="section-header fade-in">
+    <span class="section-num">02</span>
+    <h2>Skills &amp; Capabilities</h2>
+  </div>
+  <div class="skills-cols fade-in">
+    <div class="skills-group">
+      <h3>Program &amp; Delivery</h3>
+      <span class="skill-tag">Technical Program Management</span>
+      <span class="skill-tag">Portfolio Governance</span>
+      <span class="skill-tag">OKR &amp; Roadmap Planning</span>
+      <span class="skill-tag">Dependency Management</span>
+      <span class="skill-tag">Risk Mitigation</span>
+      <span class="skill-tag">SAFe · Agile · Scrum</span>
+      <span class="skill-tag">Executive Reporting</span>
+      <span class="skill-tag">Budget &amp; P&amp;L Ownership</span>
+    </div>
+    <div class="skills-group">
+      <h3>Engineering &amp; Platform</h3>
+      <span class="skill-tag">AWS · Salesforce · ERP</span>
+      <span class="skill-tag">CI/CD · DevOps</span>
+      <span class="skill-tag">Microservices</span>
+      <span class="skill-tag">REST APIs</span>
+      <span class="skill-tag">IAM / Identity Platforms</span>
+      <span class="skill-tag">SLO Governance</span>
+      <span class="skill-tag">DORA Metrics</span>
+      <span class="skill-tag">Cloud Migration</span>
+    </div>
+    <div class="skills-group">
+      <h3>Leadership &amp; AI</h3>
+      <span class="skill-tag">Engineering Org Scaling</span>
+      <span class="skill-tag">Distributed Team Leadership</span>
+      <span class="skill-tag">AI/GenAI Delivery</span>
+      <span class="skill-tag">AWS Bedrock</span>
+      <span class="skill-tag">Salesforce Agentforce</span>
+      <span class="skill-tag">Stakeholder Alignment</span>
+      <span class="skill-tag">Jira · Confluence · Miro</span>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="edu-section">
+  <div class="section-header fade-in">
+    <span class="section-num">03</span>
+    <h2>Education</h2>
+  </div>
+  <div class="edu-grid fade-in">
+    <div class="edu-card">
+      <div class="edu-degree">Master of Business Administration</div>
+      <div class="edu-inst">Griffith University, Australia</div>
+      <div class="edu-year">Information Systems · 2009 – 2011</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">Bachelor of Engineering</div>
+      <div class="edu-inst">Visvesvaraya Technological University</div>
+      <div class="edu-year">Computer Science · 2003 – 2007</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT STRIP -->
+<div class="contact-strip">
+  <div class="contact-strip-left">
+    <h2>Let's Talk.</h2>
+    <p>Actively exploring Head of TPM, Director of Engineering Programs, and VP Engineering roles in Bengaluru and across India.</p>
+    <div class="availability">
+      <div class="avail-dot"></div>
+      Available — Bengaluru / Remote / Hybrid
+    </div>
+  </div>
+  <div class="contact-strip-links">
+    <a href="mailto:shashank@mahadev.au" class="contact-strip-link">✉ shashank@mahadev.au</a>
+    <a href="tel:+917975774691" class="contact-strip-link">☎ +91 79757 74691</a>
+    <a href="https://www.linkedin.com/in/shashank-mahadev" target="_blank" class="contact-strip-link">in LinkedIn ↗</a>
+    <a href="shashank-mahadev-cv.pdf" download class="contact-strip-link">⬇ Download CV</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="shashank-mahadev.html">← Back to Site</a>
+  <span>© 2025 Shashank Mahadev · Bengaluru, India</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
