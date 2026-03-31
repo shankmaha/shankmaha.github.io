@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Working with Shank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0c;
+    --paper: #f5f2ec;
+    --cream: #ede9e0;
+    --accent: #c8440a;
+    --accent-light: #e8957a;
+    --mid: #6b6560;
+    --rule: #d4cfc6;
+    --highlight: #f0e6d3;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--paper); border-bottom: 1px solid var(--rule);
+    padding: 0 4vw; height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    font-family: 'DM Mono', monospace; font-size: 13px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--mid); text-decoration: none;
+  }
+  .logo:hover { color: var(--accent); }
+  nav a {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; color: var(--mid);
+    margin-left: 2rem; transition: color 0.2s;
+  }
+  nav a:hover { color: var(--accent); }
+  nav a.active { color: var(--accent); }
+
+  /* PAGE */
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 120px 4vw 100px;
+  }
+
+  /* EYEBROW */
+  .eyebrow {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .eyebrow::before {
+    content: ''; display: inline-block;
+    width: 32px; height: 1px; background: var(--accent);
+  }
+
+  /* HEADINGS */
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 900; line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700;
+    margin-top: 64px; margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  /* INTRO */
+  .intro {
+    font-size: 1.05rem; color: var(--mid);
+    line-height: 1.85; margin-bottom: 48px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 48px;
+  }
+  .intro strong { color: var(--ink); font-weight: 500; }
+
+  /* PROSE */
+  p {
+    color: var(--mid);
+    margin-bottom: 1.4rem;
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+  p strong { color: var(--ink); font-weight: 500; }
+
+  /* BULLET LIST */
+  .value-list {
+    list-style: none;
+    margin: 20px 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .value-list li {
+    font-size: 0.97rem;
+    color: var(--mid);
+    padding-left: 1.6rem;
+    position: relative;
+    line-height: 1.75;
+  }
+  .value-list li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--accent); font-size: 0.85rem;
+    top: 3px;
+  }
+  .value-list li strong { color: var(--ink); font-weight: 500; }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 56px 0;
+  }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; font-style: italic;
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+    padding: 4px 0 4px 24px;
+    margin: 40px 0;
+    line-height: 1.65;
+  }
+
+  /* TESTIMONIALS */
+  .testimonial {
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    padding: 36px 40px;
+    margin-bottom: 2px;
+    position: relative;
+  }
+  .testimonial-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-style: italic;
+    line-height: 1.8; color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .testimonial-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem; font-weight: 900;
+    color: var(--accent); opacity: 0.12;
+    line-height: 1; position: absolute;
+    top: 16px; left: 28px;
+  }
+  .testimonial-name {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink); margin-bottom: 2px;
+  }
+  .testimonial-role { font-size: 0.82rem; color: var(--mid); }
+  .testimonial-rel {
+    font-family: 'DM Mono', monospace; font-size: 9.5px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent); margin-top: 4px;
+  }
+
+  /* FUN FACTS */
+  .facts-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; margin: 24px 0;
+  }
+  .fact-card {
+    background: var(--cream); border: 1px solid var(--rule);
+    padding: 24px 28px;
+  }
+  .fact-label {
+    font-family: 'DM Mono', monospace; font-size: 9.5px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 8px;
+  }
+  .fact-text { font-size: 0.88rem; color: var(--mid); line-height: 1.65; }
+  .fact-text strong { color: var(--ink); font-weight: 500; }
+
+  /* CTA */
+  .cta-block {
+    margin-top: 64px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 48px;
+  }
+  .cta-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; margin-bottom: 1rem;
+  }
+  .cta-block p { color: #a09a92; font-size: 0.92rem; margin-bottom: 2rem; }
+  .cta-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .cta-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    text-decoration: none; font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 12px 24px; border: 1.5px solid var(--paper);
+    color: var(--paper); transition: all 0.2s;
+  }
+  .cta-link:hover { background: var(--accent); border-color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 4vw;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    letter-spacing: 0.08em; color: var(--mid); text-transform: uppercase;
+    border-top: 1px solid var(--rule);
+  }
+  footer a { color: var(--mid); text-decoration: none; transition: color 0.2s; }
+  footer a:hover { color: var(--accent); }
+
+  @media (max-width: 768px) {
+    nav { display: none; }
+    .facts-row { grid-template-columns: 1fr; }
+    .cta-block { padding: 32px; }
+  }
+
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">Shashank Mahadev</a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#expertise">Expertise</a>
+    <a href="shashank-mahadev-cv.html">CV</a>
+    <a href="shashank-beyond.html" class="active">Working with me</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+</header>
+
+<div class="page">
+
+  <div class="eyebrow fade-in">A manual of sorts</div>
+  <h1 class="fade-in">Working<br>with <em>Shank.</em></h1>
+
+  <div class="intro fade-in">
+    <p>Most people call me Shank — not Shashank. If you're considering working with me, hiring me, or just want to know if we'd be a good fit, this page is for you.</p>
+    <p>I've spent 17 years delivering complex programs across three countries. I've managed teams, budgets, boards, and crises. I know what I bring and I know what I expect. <strong>Here's an honest manual.</strong></p>
+  </div>
+
+  <h2 class="fade-in">What I value at work</h2>
+
+  <ul class="value-list fade-in">
+    <li><strong>Constant learning is non-negotiable.</strong> I live by it. I actively seek out people smarter than me — senior leaders, domain experts, anyone operating at a level I want to understand. If you stop growing, something has gone wrong.</li>
+    <li><strong>High standards are a form of respect.</strong> I demand a lot from the people I work with. Not to be difficult — because I genuinely believe most people are capable of more than they're asked for.</li>
+    <li><strong>Ownership goes all the way.</strong> If it's in your domain, own it completely. Don't wait to be chased. Don't bring a problem without having thought about the solution.</li>
+    <li><strong>Directness over diplomacy.</strong> Say what you mean. I don't do office politics. People always know where they stand with me and I expect the same in return.</li>
+    <li><strong>Progress beats perfection — usually.</strong> I lean towards perfectionism and I won't pretend otherwise. But I've learned to ask whether "better" is worth the cost of "later." Sometimes good enough, shipped on time, is the right call.</li>
+    <li><strong>Data backs the decision.</strong> Gut feel has a role. But gut feel backed by evidence is better. I'll always ask for the numbers.</li>
+    <li><strong>Optimism is a professional skill.</strong> Things go wrong in complex programs. Always. What separates good delivery leaders from great ones is staying clear-headed and forward-moving when they do.</li>
+  </ul>
+
+  <hr class="divider">
+
+  <h2 class="fade-in">How I operate</h2>
+
+  <p class="fade-in">I'm hands-on. Even in senior leadership roles I've stayed close to the work — involved in architecture discussions, system design decisions, working through problems with tech leads and engineers directly. I don't manage from a distance.</p>
+
+  <p class="fade-in">I'm high energy. When I'm focused on a problem I work fast and I expect the people around me to match that pace. If something is blocked, I want to know immediately — not at the next standup, not end of day.</p>
+
+  <p class="fade-in"><strong>If I have to remind you of something we've already discussed, it's already too late.</strong> Timely follow-through is the baseline, not a bonus.</p>
+
+  <p class="fade-in">I invest heavily in people. Programs don't deliver themselves — people do. I'll spend real time understanding what makes someone tick, what's in the way, and what would help them do their best work. I've maintained 0% attrition through some of the most intense delivery periods of my career. That's not an accident.</p>
+
+  <p class="fade-in">I'm collaborative. I want the best idea to win, regardless of where it comes from. I have no ego about being wrong and I expect the same openness in return.</p>
+
+  <div class="pull-quote fade-in">"Even in the toughest situations, he is always composed and never lets go of his intellect. With his humorous and witty nature, during tough times, he keeps the team's sincerity intact but eases out the seriousness."</div>
+
+  <p class="fade-in">I'm calm under pressure. When things break — and in complex programs they always do — I don't spiral. I slow down, assess clearly, and move. The team needs that anchor and I take it seriously.</p>
+
+  <p class="fade-in">I question the status quo constantly. If something isn't working, we change it. I don't do "that's how we've always done it." And I love it when people around me do the same.</p>
+
+  <p class="fade-in"><strong>Low agency is a disease.</strong> If you're stuck, go around it. Talk to people. Find the answer. Don't sit and wait. Agency and urgency together are what move programs forward.</p>
+
+  <hr class="divider">
+
+  <h2 class="fade-in">What you can expect from me</h2>
+
+  <ul class="value-list fade-in">
+    <li>Full transparency on priorities, blockers, and where things stand. You'll never wonder what's going on.</li>
+    <li>Direct, detailed feedback — and a genuine willingness to discuss and debate it. If my feedback isn't clear, push back. I want us to land on the right answer together.</li>
+    <li>Protection of your focus. I'll do everything I can to make sure you're working on the right things, with clear priorities, without unnecessary noise.</li>
+    <li>Honest conversations early. I won't let problems fester. If something is off, I'll say it — and I expect the same from you.</li>
+    <li>Humour. Work is serious. It doesn't have to be sombre. Some of the best delivery moments I've been part of were also the ones with the most laughter.</li>
+  </ul>
+
+  <hr class="divider">
+
+  <h2 class="fade-in">Outside the work</h2>
+
+  <p class="fade-in">My wife and son are the anchor for everything. The three of us have travelled to more countries together than most people visit in a lifetime — Fiji, Singapore, Hong Kong, Malaysia, Bali, Japan, Vietnam, Bhutan, and virtually all of Australia. We're nowhere near done.</p>
+
+  <p class="fade-in"><strong>Japan was the best of all of it.</strong> The culture, the food, the people, the quiet precision in everything — it changed how I think about craft. I'll go back many times.</p>
+
+  <p class="fade-in">I'm physical. The gym is non-negotiable — it's where I process and reset. Basketball, badminton, cricket, snooker. Competitive across all of them. I love the water and beaches — there's something about being next to something that large and indifferent that resets perspective completely.</p>
+
+  <div class="facts-row fade-in">
+    <div class="fact-card">
+      <div class="fact-label">Daily ritual</div>
+      <div class="fact-text">Cold water bath or ice plunge. Every single day. Not a trend — it genuinely works. <strong>It's how I start.</strong></div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-label">Always eating</div>
+      <div class="fact-text">I eat my way through every city I visit. Local spots, no menus in English. <strong>Japanese cuisine sits at the top of everything.</strong></div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-label">Tech curious</div>
+      <div class="fact-text">Genuinely fascinated by where things are going. <strong>AI in particular</strong> — not the hype, the actual capability and the gap between the two.</div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-label">On repeat</div>
+      <div class="fact-text">Music is always on. Films are where I switch completely off. Both feed the same thing: <strong>appreciation for craft done well.</strong></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <h2 class="fade-in">What people say</h2>
+  <p style="color: var(--mid); font-size: 0.95rem; margin-bottom: 2rem; margin-top: -12px;" class="fade-in">From LinkedIn recommendations.</p>
+
+  <div class="testimonial fade-in">
+    <div class="testimonial-mark">"</div>
+    <div class="testimonial-quote">
+      I had the pleasure of working with Shank — whilst it was only for a short time it was evident what an exceptional leader he is. His people management skills are next to none and his determination to drive great outcomes for his team and the organisation is something to be admired. Shank's technical knowledge is excellent, no matter the subject, depth or scale. Shank is and always will be someone who I hold in high regard and it would be a privilege to work with him again.
+    </div>
+    <div class="testimonial-name">Mathew Kirk</div>
+    <div class="testimonial-role">Product Manager, Entain Australia & New Zealand</div>
+    <div class="testimonial-rel">Senior colleague · August 2023</div>
+  </div>
+
+  <div class="testimonial fade-in">
+    <div class="testimonial-mark">"</div>
+    <div class="testimonial-quote">
+      Shank is a bouquet of professional abilities. He is a person who takes care of his team like he takes care of himself. Technically a very strong person. His communication skills, the way he speaks to the team, handles the issues — it all comes together to make a project successful. He is a professional who adapts himself to the situation very effectively. Even in the toughest of situations, he is always composed and never lets go of his intellect. With his humorous and witty nature, during tough times, he keeps the team's sincerity intact but eases out the seriousness, making the team even more focused, connected and motivated. It was a great pleasure to work for him.
+    </div>
+    <div class="testimonial-name">Samresh (Sam) Bhardwaj</div>
+    <div class="testimonial-role">Automation Test Lead, Australian Federal Government</div>
+    <div class="testimonial-rel">Direct report · December 2020</div>
+  </div>
+
+  <div class="cta-block fade-in">
+    <h3>If this sounds like your kind of work — let's talk.</h3>
+    <p>Based in Bengaluru and open to the right opportunity. Head of TPM, Director of Engineering Programs, VP Engineering. Hybrid or remote. Full work rights in India.</p>
+    <div class="cta-links">
+      <a href="index.html#contact" class="cta-link">Get in touch →</a>
+      <a href="shashank-mahadev-cv.html" class="cta-link">View CV ↗</a>
+      <a href="https://www.linkedin.com/in/shashank-mahadev" target="_blank" class="cta-link">LinkedIn ↗</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span>© 2025 Shashank Mahadev</span>
+  <div style="display:flex;gap:2rem;">
+    <a href="index.html">Home</a>
+    <a href="shashank-mahadev-cv.html">CV</a>
+    <a href="https://www.linkedin.com/in/shashank-mahadev" target="_blank">LinkedIn ↗</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
