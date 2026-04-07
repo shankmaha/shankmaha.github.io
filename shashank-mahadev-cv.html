@@ -370,6 +370,21 @@
     footer a { color: var(--mid); text-decoration: none; }
     footer a:hover { color: var(--accent); }
 
+
+  /* Hamburger button — hidden on desktop */
+  .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 200; }
+  .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--ink); transition: transform 0.3s ease, opacity 0.3s ease; transform-origin: center; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* Mobile nav overlay — hidden by default */
+  .mobile-nav { display: none; position: fixed; inset: 0; top: 60px; background: var(--paper); z-index: 150; flex-direction: column; padding: 48px 4vw 40px; border-top: 1px solid var(--rule); transform: translateY(-8px); opacity: 0; pointer-events: none; transition: transform 0.3s ease, opacity 0.3s ease; }
+  .mobile-nav.open { transform: translateY(0); opacity: 1; pointer-events: all; }
+  .mobile-nav a { font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--mid); padding: 20px 0; border-bottom: 1px solid var(--rule); transition: color 0.2s; display: block; }
+  .mobile-nav a:first-child { border-top: 1px solid var(--rule); }
+  .mobile-nav a:hover, .mobile-nav a.active { color: var(--accent); }
+
     /* ── PRINT / PDF ── */
     @media print {
       header, .cv-download-col, .contact-strip-links, footer { display: none; }
@@ -387,6 +402,8 @@
       .skills-cols { grid-template-columns: 1fr; }
       .edu-grid { grid-template-columns: 1fr; }
       nav { display: none; }
+      .hamburger { display: flex; }
+    .mobile-nav { display: flex; }
     }
 
     /* ── FADE IN ── */
@@ -410,7 +427,18 @@
     <a href="index.html#contact">Contact</a>
     <a href="shashank-beyond.html">Working with me</a>
   </nav>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+
+<nav class="mobile-nav" id="mobileNav">
+  <a href="index.html">About</a>
+  <a href="index.html#expertise">Expertise</a>
+  <a href="shashank-thinking.html">Thinking</a>
+  <a href="index.html#contact">Contact</a>
+  <a href="shashank-beyond.html">Working with me</a>
+</nav>
 
 <!-- CV HERO -->
 <div class="cv-hero">
@@ -646,6 +674,20 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  function toggleMenu(open) {
+    hamburger.classList.toggle('open', open);
+    mobileNav.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  hamburger.addEventListener('click', () => toggleMenu(!hamburger.classList.contains('open')));
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => toggleMenu(false));
+  });
 </script>
 </body>
 </html>
